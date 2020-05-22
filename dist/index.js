@@ -1,0 +1,9 @@
+"use strict";require("core-js/modules/es.promise"),require("core-js/modules/es.promise.finally"),require("core-js/modules/web.dom-collections.iterator"),function(a,b){if("function"==typeof define&&define.amd)define(["module","exports"],b);else if("undefined"!=typeof exports)b(module,exports);else{var c={exports:{}};b(c,c.exports),a.undefined=c.exports}}(void 0,function(a,b){"use strict";function c(a,b){return Promise.race([d(b),a])}function d(a){return new Promise((b,c)=>setTimeout(()=>{c("timeout")},a))}function e(a,b){let c=2<arguments.length&&arguments[2]!==void 0?arguments[2]:new g;return function(){for(var d=arguments.length,e=Array(d),f=0;f<d;f++)e[f]=arguments[f];return c.finally(async()=>a.call(this,...e),b),c.currentPromise()}}function f(a,b){let c=new g,d=[];return a.forEach(a=>{let f;a instanceof Array&&(f=null==a[1]?b:a[1],a=a[0]),d.push(e(a,f,c))}),d}Object.defineProperty(b,"__esModule",{value:!0});class g{constructor(){this._promise=Promise.resolve()}/**
+     * 
+     * @param {Function} promiseFunc 返回一个Promise，该promise在上一个promise完成(r/reject)后执行 
+     * @param {Number} timeout 该proimse会在timeout后自动完成(reject)，不管promiseFunc返回的promise是否完成
+     */finally(a,b){let d=this._promise;return this._promise=new Promise(a=>{d.finally(()=>{a()})}).then(()=>b?c(a(),b):a()),this}currentPromise(){return this._promise}}// 添加规律的接口
+// finally[n]s , e.g. finally5s 5000 timeout
+// finally3s 3000 timeout
+// finally[n]ms e.g. finally300ms
+g=new Proxy(g,{construct(a,b){return new Proxy(new a(...b),{get(a,b){let c=/^finally(\d+)s$/.exec(b),d=/^finally(\d+)ms$/.exec(b);if(c||d){let b=c&&c[1]||d&&d[1],e=c?1e3:1;return new Proxy(Reflect.get(a,"finally"),{apply(a,c,d){return Reflect.apply(a,c,[...d,b*e])}})}return Reflect.get(a,b)}})}});let h={PromiseQueue:g,timeoutRacePromise:c,timeoutPromise:d,queueUp:e,queueUpAll:f};b.default=h,a.exports=h});
