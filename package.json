@@ -1,6 +1,6 @@
 {
   "name": "@anfo/promisequeue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a queue of promise",
   "main": "dist/index.js",
   "scripts": {
@@ -12,6 +12,10 @@
     "async"
   ],
   "author": "anfo",
+  "repository": {
+    "type" : "git",
+    "url": "https://github.com/longjiahui/promisequeue.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.8.4",
