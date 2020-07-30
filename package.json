@@ -1,6 +1,6 @@
 {
   "name": "@anfo/promisequeue",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "a queue of promise",
   "main": "dist/index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   ],
   "author": "anfo",
   "repository": {
-    "type" : "git",
+    "type": "git",
     "url": "https://github.com/longjiahui/promisequeue.git"
   },
   "license": "MIT",

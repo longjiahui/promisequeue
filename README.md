@@ -80,3 +80,7 @@ queue.finally(async ()=>new Promise(r=>{
     }, 1000)
 }))
 ```
+
+### cachePromise(promiseFunc: Function that return a Promise, timeout: Number)
+### cacheFinishedPromise(promiseFunc: Function that return a Promise, timeout: Number)
+### delayPromise(promiseFunc: Function that return a Promise, timeout: Number)

@@ -81,12 +81,68 @@ function queueUpAll(promiseFuncs, defaultTimeout){
     return functions
 }
 
+function _cachePromise(options){
+    let {
+        promiseFunc,
+        finishedTimeout,
+        timeout
+    } = options || {}
+    let prevCallTime
+    let prevCallPromise
+    return function(...args){
+        let callPromiseFunc = ()=>promiseFunc?.call(this, ...args)
+        let now = Date.now()
+        let ret
+        if(prevCallTime && now - prevCallTime < (finishedTimeout || timeout)){
+            ret = prevCallPromise || callPromiseFunc()
+        }else{
+            prevCallPromise = callPromiseFunc()
+            ret = prevCallPromise
+        }
+        if(finishedTimeout){
+            return ret.finally(()=>{prevCallTime = Date.now()})
+        }else{
+            prevCallTime = now
+            return ret
+        }
+    }
+}
+// 一定时间内连续请求这个promise，返回它的缓存
+function cacheFinishedPromise(promiseFunc, timeout = 100){
+    return _cachePromise({
+        promiseFunc, 
+        finishedTimeout: timeout
+    })
+}
+function cachePromise(promiseFunc, timeout = 100){
+    return _cachePromise({
+        promiseFunc,
+        timeout,
+    })
+}
+
+// 往后节流
+function delayPromise(promiseFunc, timeout = 500){
+    let instance
+    return function(...rest){
+        if(instance){
+            clearTimeout(instance)
+            instance = null
+        }
+        instance = setTimeout(promiseFunc.bind(this, ...rest), timeout)
+    }
+}
+
 let lib = {
     PromiseQueue,
     timeoutRacePromise,
     timeoutPromise,
     queueUp,
-    queueUpAll
+    queueUpAll,
+    cachePromise,
+    cacheFinishedPromise,
+    delayPromise,
 }
+
 export default lib
 module.exports = lib
