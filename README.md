@@ -82,5 +82,19 @@ queue.finally(async ()=>new Promise(r=>{
 ```
 
 ### cachePromise(promiseFunc: Function that return a Promise, timeout: Number)
+
+一个返回Promise的函数连续调用时，在timeout时间间隔内的连续调用会返回上一次调用的缓存
+
+When a function that returns Promise is called continuously, the consecutive calls within the timeout interval will return the cache of the last call
+
 ### cacheFinishedPromise(promiseFunc: Function that return a Promise, timeout: Number)
-### delayPromise(promiseFunc: Function that return a Promise, timeout: Number)
+
+返回一个queueUp的函数，连续的调用，会在上一次的调用结束后才被调用，同时如果再被调用与上一次调用完成之间的时间间隔小于timeout，则会返回上一次调用的缓存
+
+Return a queueUp function. Continuous calls will be called after the last call ends. At the same time, if the time interval between being called again and the last call is less than timeout, it will return to the cache of the last call
+
+### delayFunc(func: Function, timeout: Number)
+
+返回一个延迟调用的函数，例如输入的回调函数，在timeout时间内的连续调用，只有最后一次的调用会生效
+
+Return a delayed call function, such as input callback function, continuous call within timeout time, only the last call will take effect
