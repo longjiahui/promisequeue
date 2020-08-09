@@ -16,7 +16,7 @@ Because there is an asynchronous call inside a function, and the global variable
 npm install @anfo/promisequeue
 ```
 
-```
+```javascript
 import { queueUp } from '@anfo/promsiequeue' 
 ```
 
