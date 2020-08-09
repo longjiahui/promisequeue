@@ -10,6 +10,16 @@ I am going to use my poor English to demostrate the simple usage of this lib. ..
 
 Because there is an asynchronous call inside a function, and the global variable or non-reentrant is referenced in the function, at this time I want it to remain mutually exclusive, that is, the function itself has a small queue, and it will wait until it is completed after being called. The second execution will start, of course, this function can be called at any time.
 
+## quick start
+
+```bash
+npm install @anfo/promisequeue
+```
+
+```
+import { queueUp } from '@anfo/promsiequeue' 
+```
+
 ## example
 
 ### queueUp(function: Function, timeout: Number)
