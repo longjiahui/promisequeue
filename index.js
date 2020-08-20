@@ -89,7 +89,7 @@ function _cachePromise(options){
     } = options || {}
     let prevCallTime
     let prevCallPromise
-    return queueUp(async function(...args){
+    const _func = async function(...args){
         let callPromiseFunc = ()=>promiseFunc?.call(this, ...args)
         let now = Date.now()
         let ret
@@ -105,7 +105,12 @@ function _cachePromise(options){
             prevCallTime = now
             return ret
         }
-    })
+    }
+    if(finishedTimeout){
+        return queueUp(_func)
+    }else{
+        return _func
+    }
 }
 // 一定时间内连续请求这个promise，返回它的缓存
 function cacheFinishedPromise(promiseFunc, timeout = 100){

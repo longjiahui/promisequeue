@@ -14,8 +14,8 @@ setTimeout(async ()=>{
 setTimeout(async ()=>{
     let a = await cached()
     console.log(a)
-}, 200)
+}, 1100)
 setTimeout(async ()=>{
     let a = await cached()
     console.log(a)
-}, 1300)
+}, 2400)
